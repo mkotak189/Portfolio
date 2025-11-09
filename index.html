@@ -1,41 +1,65 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Meghan Kotak — Portfolio</title>
+
+  <!-- Tailwind CDN (no build) -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f5f5f5; }
-    header { background: #333; color: #fff; padding: 1rem; text-align: center; }
-    main { padding: 2rem; }
-    .project { background: #fff; margin-bottom: 1rem; padding: 1rem; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
-    .project h2 { margin: 0; }
-    .project a { text-decoration: none; color: #0066cc; }
+    .line-clamp-3 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
   </style>
 </head>
-<body>
-  <header>
-    <h1>Meghan Kotak's Portfolio</h1>
-    <p>Business Analytics | Data Science | AI | Projects</p>
-  </header>
-  <main id="projects"></main>
+<body class="bg-gray-50 text-slate-900 min-h-screen">
 
-  <script>
-    fetch('projects.json')
-      .then(response => response.json())
-      .then(data => {
-        const container = document.getElementById('projects');
-        data.forEach(project => {
-          const div = document.createElement('div');
-          div.className = 'project';
-          div.innerHTML = `
-            <h2>${project.title}</h2>
-            <p>${project.description}</p>
-            <a href="${project.link}" target="_blank">View Project</a>
-          `;
-          container.appendChild(div);
-        });
-      });
-  </script>
+  <header class="max-w-5xl mx-auto p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <div>
+      <div class="text-2xl font-bold">Meghan Kotak</div>
+      <div class="text-sm text-gray-600">Master of Science — Business Analytics & AI</div>
+      <div class="mt-1 text-sm text-gray-600">Dallas, TX • meghandeepak.kotak@utdallas.edu • (214) 899-5140</div>
+      <div class="mt-1 text-sm"><a href="https://www.linkedin.com/in/meghan-kotak/" class="text-indigo-600">LinkedIn</a></div>
+    </div>
+
+    <div class="flex gap-3">
+      <a href="resume.pdf" class="px-4 py-2 border rounded-md bg-white">Download Resume</a>
+      <a href="mailto:meghandeepak.kotak@utdallas.edu" class="px-4 py-2 bg-indigo-600 text-white rounded-md">Contact</a>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto p-6">
+    <section class="mb-6">
+      <h1 class="text-3xl md:text-4xl font-extrabold">Selected Projects & Work</h1>
+      <p class="text-gray-600 mt-2">Data analytics, NLP, cloud ETL and dashboards — samples below. Add, search, and export projects locally.</p>
+    </section>
+
+    <!-- Controls -->
+    <section class="mb-4 flex flex-col md:flex-row gap-3 items-start md:items-center justify-between">
+      <div class="flex gap-2 w-full md:w-auto">
+        <input id="search" placeholder="Search projects..." class="px-3 py-2 border rounded-md w-full md:w-80" />
+        <button id="addSample" class="px-3 py-2 border rounded-md">+ Sample</button>
+        <button id="export" class="px-3 py-2 border rounded-md">Export</button>
+      </div>
+      <div id="tags" class="flex gap-2 overflow-x-auto pt-2 md:pt-0"></div>
+    </section>
+
+    <!-- Projects grid -->
+    <section>
+      <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <div id="empty" class="mt-6 text-gray-500 hidden">No projects — add one or reset local data.</div>
+    </section>
+
+    <!-- Footer / About (small summary from resume) -->
+    <section class="mt-12 p-6 bg-white rounded-lg border">
+      <h3 class="font-semibold">About</h3>
+      <p class="text-sm text-gray-700 mt-2">
+        Master of Science (Business Analytics & AI) | B.S. Chemical Engineering. Experience building Power BI dashboards, SQL & Python analytics, and cloud ETL (Azure Databricks / ADF).
+        <br/><br/>
+        Recent roles: Business Analyst at 63 Moons Technologies; Business System Analyst at Tata Consultancy Services (NSE client).
+      </p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
