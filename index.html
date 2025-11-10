@@ -7,58 +7,176 @@
 
   <!-- Tailwind CDN (no build) -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- tiny fonts + icons -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    .line-clamp-3 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+    :root { --accent-from: #7c3aed; --accent-to: #ec4899; }
+    body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+    .card-hover { transition: transform .22s ease, box-shadow .22s ease; }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(2,6,23,.12); }
+    .gradient-blob { filter: blur(40px); opacity: .18; transform: translateZ(0); }
+    .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    /* dark mode helpers */
+    .dark .bg-inv { background: rgba(255,255,255,0.03); }
   </style>
 </head>
-<body class="bg-gray-50 text-slate-900 min-h-screen">
+<body class="bg-gray-50 dark:bg-slate-900 dark:text-gray-100 transition-colors">
 
-  <header class="max-w-5xl mx-auto p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-    <div>
-      <div class="text-2xl font-bold">Meghan Kotak</div>
-      <div class="text-sm text-gray-600">Master of Science — Business Analytics & AI</div>
-      <div class="mt-1 text-sm text-gray-600">Dallas, TX • meghandeepak.kotak@utdallas.edu • (214) 899-5140</div>
-      <div class="mt-1 text-sm"><a href="https://www.linkedin.com/in/meghan-kotak/" class="text-indigo-600">LinkedIn</a></div>
+  <!-- Header -->
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-500 flex items-center justify-center font-bold text-white">MK</div>
+      <div>
+        <div class="text-lg font-semibold">Meghan Kotak</div>
+        <div class="text-sm text-gray-600 dark:text-gray-300">Business Analytics & AI • Dallas, TX</div>
+      </div>
     </div>
 
-    <div class="flex gap-3">
-      <a href="resume.pdf" class="px-4 py-2 border rounded-md bg-white">Download Resume</a>
-      <a href="mailto:meghandeepak.kotak@utdallas.edu" class="px-4 py-2 bg-indigo-600 text-white rounded-md">Contact</a>
+    <div class="flex items-center gap-3">
+      <button id="themeToggle" class="px-3 py-2 rounded-md border bg-white/60 dark:bg-white/5">🌙</button>
+      <a href="resume.pdf" class="px-3 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-sm">Download Resume</a>
     </div>
   </header>
 
-  <main class="max-w-5xl mx-auto p-6">
-    <section class="mb-6">
-      <h1 class="text-3xl md:text-4xl font-extrabold">Selected Projects & Work</h1>
-      <p class="text-gray-600 mt-2">Data analytics, NLP, cloud ETL and dashboards — samples below. Add, search, and export projects locally.</p>
+  <!-- Hero -->
+  <main class="max-w-6xl mx-auto px-6 pb-20">
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-8">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">I create data-driven products & interactive analytics</h1>
+        <p class="mt-4 text-gray-600 dark:text-gray-300 max-w-xl">I build dashboards, ETL pipelines, and NLP solutions that help teams make faster decisions. Explore selected projects and demos below — everything runs in the browser and is easy to host.</p>
+
+        <div class="mt-6 flex gap-3">
+          <a href="#projects" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-md">See projects</a>
+          <a href="#contact" class="px-4 py-2 border rounded-md">Get in touch</a>
+        </div>
+
+        <div class="mt-8 grid grid-cols-2 gap-3">
+          <div class="p-4 bg-white rounded-xl border dark:bg-inv">
+            <div class="text-sm text-gray-500">Experience</div>
+            <div class="font-semibold">Business Analytics</div>
+          </div>
+          <div class="p-4 bg-white rounded-xl border dark:bg-inv">
+            <div class="text-sm text-gray-500">Open Source</div>
+            <div class="font-semibold">Projects & Demos</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="rounded-2xl p-6 bg-white dark:bg-slate-800 shadow-2xl">
+          <div class="text-sm text-gray-500">Featured</div>
+          <h3 class="font-semibold mt-2">Safety Intelligence — NLP Pipeline</h3>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300 line-clamp-3">Injury narrative NLP, tagging, and Power BI visualizations — a full pipeline from raw text to insights.</p>
+          <div class="mt-4 flex gap-2">
+            <button id="openFeatured" class="px-3 py-2 bg-purple-600 text-white rounded-md">View</button>
+            <button id="demoFeatured" class="px-3 py-2 border rounded-md">Live demo</button>
+          </div>
+        </div>
+        <div class="absolute -right-10 -bottom-8 w-40 h-40 rounded-xl bg-gradient-to-br from-pink-400 to-blue-400 gradient-blob"></div>
+      </div>
     </section>
 
     <!-- Controls -->
-    <section class="mb-4 flex flex-col md:flex-row gap-3 items-start md:items-center justify-between">
-      <div class="flex gap-2 w-full md:w-auto">
-        <input id="search" placeholder="Search projects..." class="px-3 py-2 border rounded-md w-full md:w-80" />
-        <button id="addSample" class="px-3 py-2 border rounded-md">+ Sample</button>
-        <button id="export" class="px-3 py-2 border rounded-md">Export</button>
+    <section id="projects" class="mt-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <input id="search" placeholder="Search projects, tags, descriptions..." class="px-3 py-2 border rounded-md w-72" />
+          <select id="sortBy" class="px-3 py-2 border rounded-md">
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="az">A → Z</option>
+            <option value="starred">Most starred</option>
+          </select>
+          <button id="showFav" class="px-3 py-2 border rounded-md">★ Favorites</button>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button id="importBtn" class="px-3 py-2 border rounded-md">Import</button>
+          <button id="exportBtn" class="px-3 py-2 border rounded-md">Export</button>
+          <button id="addProjBtn" class="px-3 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-md">+ Add Project</button>
+        </div>
       </div>
-      <div id="tags" class="flex gap-2 overflow-x-auto pt-2 md:pt-0"></div>
+
+      <div id="tagList" class="mt-4 flex gap-2 overflow-x-auto py-2"></div>
+
+      <div id="grid" class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <div id="noResults" class="mt-8 text-gray-500 hidden">No projects — add one or reset to sample data.</div>
     </section>
 
-    <!-- Projects grid -->
-    <section>
-      <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-      <div id="empty" class="mt-6 text-gray-500 hidden">No projects — add one or reset local data.</div>
+    <!-- Contact -->
+    <section id="contact" class="mt-12 p-6 bg-white rounded-2xl border dark:bg-inv">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="text-xl font-bold">Let's build something useful</h3>
+          <p class="mt-2 text-gray-700 dark:text-gray-300">Reach me via email or LinkedIn. I enjoy building dashboards, automated ETL, and NLP pipelines.</p>
+          <div class="mt-6">
+            <a href="mailto:meghandeepak.kotak@utdallas.edu" class="px-3 py-2 bg-indigo-600 text-white rounded-md">Email me</a>
+            <a href="https://www.linkedin.com/in/meghan-kotak/" class="px-3 py-2 border rounded-md ml-2">LinkedIn</a>
+          </div>
+        </div>
+
+        <div>
+          <form id="contactForm" class="space-y-3">
+            <input name="subject" placeholder="Subject" class="w-full px-3 py-2 border rounded-md" />
+            <textarea name="message" placeholder="Message" class="w-full px-3 py-2 border rounded-md h-28"></textarea>
+            <div class="flex gap-2">
+              <button type="submit" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-md">Send</button>
+              <button id="resetSample" type="button" class="px-4 py-2 border rounded-md">Reset to sample</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </section>
 
-    <!-- Footer / About (small summary from resume) -->
-    <section class="mt-12 p-6 bg-white rounded-lg border">
-      <h3 class="font-semibold">About</h3>
-      <p class="text-sm text-gray-700 mt-2">
-        Master of Science (Business Analytics & AI) | B.S. Chemical Engineering. Experience building Power BI dashboards, SQL & Python analytics, and cloud ETL (Azure Databricks / ADF).
-        <br/><br/>
-        Recent roles: Business Analyst at 63 Moons Technologies; Business System Analyst at Tata Consultancy Services (NSE client).
-      </p>
-    </section>
+    <footer class="mt-12 text-center text-sm text-gray-500">© <span id="year"></span> Meghan Kotak — Built with JavaScript • Host on GitHub Pages</footer>
   </main>
+
+  <!-- Add/Edit Modal -->
+  <div id="projModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-2xl p-6 relative">
+      <button id="closeModal" class="absolute right-4 top-4">✕</button>
+      <h3 class="text-lg font-bold" id="modalTitle">Add project</h3>
+
+      <form id="projForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <div class="space-y-2">
+          <input id="projTitle" placeholder="Project title" class="w-full px-3 py-2 border rounded-md" required />
+          <textarea id="projDesc" placeholder="Short description" class="w-full px-3 py-2 border rounded-md h-28" required></textarea>
+          <input id="projTags" placeholder="Tags (comma separated) e.g., python, powerbi" class="w-full px-3 py-2 border rounded-md" />
+          <div class="flex gap-2">
+            <input id="projGithub" placeholder="GitHub URL" class="w-full px-3 py-2 border rounded-md" />
+            <input id="projDemo" placeholder="Live demo URL" class="w-full px-3 py-2 border rounded-md" />
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="border rounded-md p-3 bg-white/60 dark:bg-white/5">
+            <label class="block text-sm font-medium mb-2">Upload preview image (optional)</label>
+            <input id="projImage" type="file" accept="image/*" />
+            <div id="imgPreview" class="mt-3 w-full h-36 bg-gray-100 rounded-md flex items-center justify-center overflow-hidden"></div>
+          </div>
+
+          <div class="flex gap-2">
+            <button id="saveProj" type="submit" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-md">Save</button>
+            <button id="cancelProj" type="button" class="px-4 py-2 border rounded-md">Cancel</button>
+            <button id="deleteProj" type="button" class="ml-auto text-red-600 hidden">Delete</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- View Modal -->
+  <div id="viewModal" class="fixed inset-0 z-40 hidden items-center justify-center bg-black/50 p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl w-full max-w-3xl p-6 relative">
+      <button id="closeView" class="absolute right-4 top-4">✕</button>
+      <div id="viewContent"></div>
+    </div>
+  </div>
+
+  <input id="fileInput" type="file" accept="application/json" class="hidden" />
 
   <script src="script.js"></script>
 </body>
